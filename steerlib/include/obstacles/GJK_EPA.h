@@ -131,6 +131,20 @@ namespace SteerLib
 		static bool intersect(float& return_penetration_depth, Util::Vector& return_penetration_vector, const std::vector<Util::Vector>& _shapeA, const std::vector<Util::Vector>& _shapeB);
 
 	private:
+		static bool intersectConvex(float& return_penetration_depth, Util::Vector& return_penetration_vector, const std::vector<Util::Vector>& _shapeA, const std::vector<Util::Vector>& _shapeB);
+		static bool intersectConcave(float& return_penetration_depth, Util::Vector& return_penetration_vector, const std::vector<Util::Vector>& _shapeA, const std::vector<Util::Vector>& _shapeB);
+		static bool gjk(const std::vector<Util::Vector>& _shapeA, const std::vector<Util::Vector>& _shapeB, std::vector<Util::Vector>& simplex);
+		static void epa(float& return_penetration_depth, Util::Vector& return_penetration_vector, const std::vector<Util::Vector>& _shapeA, const std::vector<Util::Vector>& _shapeB, std::vector<Util::Vector>& simplex);
+		static bool isConvex(const std::vector<Util::Vector>& shape);
+		static Util::Vector getCenter(const std::vector<Util::Vector>& shape);
+		static Util::Vector getSimplexPoint(const std::vector<Util::Vector>& _shapeA, const std::vector<Util::Vector>& _shapeB, Util::Vector& direction);
+		static Util::Vector getFarthestPoint(const std::vector<Util::Vector>& shape, Util::Vector& direction);
+		static bool simplexContainOrigin(std::vector<Util::Vector>& simplex, Util::Vector& direction);
+		static bool isOriginOntheLine(Util::Vector& PointA, Util::Vector& PointB);
+		static bool isOriginOnSimplex(std::vector<Util::Vector>& simplex, float& return_penetration_depth, Util::Vector& return_penetration_vector);
+		static void updatePenetration(Util::Vector& PointA, Util::Vector& PointB, float& return_penetration_depth, Util::Vector& return_penetration_vector);
+		static void findClosestEdge(std::vector<Util::Vector>& simplex, Util::Vector& normal, int& index, float& distance);
+		static bool triangulatePolygon(const std::vector<Util::Vector>& shape, std::vector<Util::Vector>& triangles);
 
 	}; // class GJK_EPA
 
